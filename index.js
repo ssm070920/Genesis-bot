@@ -7,8 +7,8 @@ const welcomeChannelComment = "어서오세요.";
 const byeChannelComment = "안녕히가세요.";
 
 client.on('ready', () => {
-  console.log(`${client.user.tag}에 로그인하였습니다!`);
-  client.user.setPresence({ game: { name: '!명령어' }, status: 'online' })
+  console.log('켰다.');
+  client.user.setPresence({ game: { name: '!help를 쳐보세요.' }, status: 'online' })
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -18,7 +18,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "일반인"));
+  member.addRole(guild.roles.find(role => role.name == "게스트"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -30,23 +30,10 @@ client.on("guildMemberRemove", (member) => {
 });
 
 client.on('message', (message) => {
-  if(message.content === 'ping') {
-    message.reply('pong');
-  }
-  
-  if(message.content.startsWith('!공지')) {
-    if(checkPermission(message)) return
-    if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!공지'.length);
-      message.member.guild.members.array().forEach(x => {
-        if(x.user.bot) return;
-        x.user.send(`<@${message.author.id}> ${contents}`);
-      });
-  
-      return message.reply('공지를 전송했습니다.');
-    } else {
-      return message.reply('채널에서 실행해주세요.');
-    }
+  if(message.author.bot) return;
+
+  if(message.content == 'ping') {
+    return message.reply('pong');
   }
 
   if(message.content === '!명령어') {
@@ -63,66 +50,72 @@ client.on('message', (message) => {
       .setFooter('제네시스', img)
 
     message.channel.send(embed)
-  }
-
-  else if(message.content == '!초대코드') {
-  message.guild.channels.get(message.channel.id).createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
-    .then(invite => {
-      message.channel.send(invite.url)
+  } 
+   else if(message.content == '!초대코드2') {
+    client.guilds.array().forEach(x => {
+      x.channels.find(x => x.type == 'text').createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
+        .then(invite => {
+          message.channel.send(invite.url)
+        })
+        .catch((err) => {
+          if(err.code == 50013) {
+            message.channel.send('**'+x.channels.find(x => x.type == 'text').guild.name+'** 채널 권한이 없어 초대코드 발행 실패')
+          }
+        })
     });
-  }
-
-  if (message.content.startsWith('!kick')) {
-  
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-        member
-          .kick('감사로그에 표시될 사유를 입력해주세요 (선택) ')
-          .then(() => {
-            message.reply(`${user.tag}를 성공적으로 추방했습니다.`);
-          })
-          .catch(err => {
-            message.reply('유저 추방에 실패하였습니다.');
-            console.error(err);
-          });
-      } else {
-        message.reply("해당 유저는 길드에 존재하지 않습니다!");
-      }
-    } else {
-      message.reply("추방할 유저를 언급하지 않았습니다!");
+  } else if(message.content == '!초대코드') {
+    if(message.channel.type == 'dm') {
+      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
     }
-  }
-
-  if (message.content.startsWith('!ban')) {
-    
-    const user = message.mentions.users.first();
-    if (user) {
-      const member = message.guild.member(user);
-      if (member) {
-
-        member
-          .ban({
-            reason: '나빠요!?',
-          })
-          .then(() => {
-            message.reply(`${user.tag}를 성공적으로 차단했습니다.`);
-          })
-          .catch(err => {
-            message.reply('유저 추방에 실패하였습니다.');
-            console.error(err);
-          });
-      } else {
-        message.reply("That user isn't in this guild!");
-      }
-    } else {
-      message.reply("추방할 유저를 언급하지 않았습니다!");
-    }
-  }
-  
-  if(message.content.startsWith('!청소')) {
+    message.guild.channels.get(message.channel.id).createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
+      .then(invite => {
+        message.channel.send(invite.url)
+      })
+      .catch((err) => {
+        if(err.code == 50013) {
+          message.channel.send('**'+message.guild.channels.get(message.channel.id).guild.name+'** 채널 권한이 없어 초대코드 발행 실패')
+        }
+      })
+  } else if(message.content.startsWith('!공지2')) {
     if(checkPermission(message)) return
+    if(message.member != null) { // 채널에서 공지 쓸 때
+      let contents = message.content.slice('!공지2'.length);
+      let embed = new Discord.RichEmbed()
+        .setAuthor('공지 of 콜라곰 BOT')
+        .setColor('#186de6')
+        .setFooter(`콜라곰 BOT ❤️`)
+        .setTimestamp()
+  
+      embed.addField('공지: ', contents);
+  
+      message.member.guild.members.array().forEach(x => {
+        if(x.user.bot) return;
+        x.user.send(embed)
+      });
+  
+      return message.reply('공지를 전송했습니다.');
+    } else {
+      return message.reply('채널에서 실행해주세요.');
+    }
+  } else if(message.content.startsWith('!공지')) {
+    if(checkPermission(message)) return
+    if(message.member != null) { // 채널에서 공지 쓸 때
+      let contents = message.content.slice('!공지'.length);
+      message.member.guild.members.array().forEach(x => {
+        if(x.user.bot) return;
+        x.user.send(`<@${message.author.id}> ${contents}`);
+      });
+  
+      return message.reply('공지를 전송했습니다.');
+    } else {
+      return message.reply('채널에서 실행해주세요.');
+    }
+  } else if(message.content.startsWith('!청소')) {
+    if(message.channel.type == 'dm') {
+      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
+    }
+    
+    if(message.channel.type != 'dm' && checkPermission(message)) return
 
     var clearLine = message.content.slice('!청소 '.length);
     var isNum = !isNaN(clearLine)
@@ -136,10 +129,9 @@ client.on('message', (message) => {
 
         var user = message.content.split(' ')[1].split('<@!')[1].split('>')[0];
         var count = parseInt(message.content.split(' ')[2])+1;
-        const _limit = 10;
         let _cnt = 0;
 
-        message.channel.fetchMessages({limit: _limit}).then(collected => {
+        message.channel.fetchMessages().then(collected => {
           collected.every(msg => {
             if(msg.author.id == user) {
               msg.delete();
@@ -186,5 +178,6 @@ async function AutoMsgDelete(message, str, delay = 3000) {
     msg.delete();
   }, delay);
 }
+
 
 client.login(token);
