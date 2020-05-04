@@ -36,7 +36,7 @@ client.on('message', (message) => {
     return message.reply('pong');
   }
   
-  if (message.content === '내 아바타는 뭐니') {
+  if (message.content === '!아바타') {
     message.reply(message.author.displayAvatarURL());
   }
 
