@@ -34,27 +34,20 @@ client.on('message', (message) => {
     message.reply('pong');
   }
   
-  else if(message.content.startsWith('!공지')) {
+  if(message.content.startsWith('!공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!공지2'.length);
-      let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of enesisbot')
-        .setColor('#186de6')
-        .setFooter(`Genesisbot`)
-        .setTimestamp()
-  
-      embed.addField('공지: ', contents);
-  
+      let contents = message.content.slice('!공지'.length);
       message.member.guild.members.array().forEach(x => {
         if(x.user.bot) return;
-        x.user.send(embed)
+        x.user.send(`<@${message.author.id}> ${contents}`);
       });
   
       return message.reply('공지를 전송했습니다.');
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
+  }
 
   if(message.content === '!명령어') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
@@ -71,17 +64,11 @@ client.on('message', (message) => {
 
     message.channel.send(embed)
   }
+
   else if(message.content == '!초대코드') {
-    client.guilds.array().forEach(x => {
-      x.channels.find(x => x.type == 'text').createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
-        .then(invite => {
-          message.channel.send(invite.url)
-        })
-        .catch((err) => {
-          if(err.code == 50013) {
-            message.channel.send('**'+x.channels.find(x => x.type == 'text').guild.name+'** 채널 권한이 없어 초대코드 발행 실패')
-          }
-        })
+  message.guild.channels.get(message.channel.id).createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
+    .then(invite => {
+      message.channel.send(invite.url)
     });
   }
 
@@ -134,12 +121,8 @@ client.on('message', (message) => {
     }
   }
   
-  else if(message.content.startsWith('!청소')) {
-    if(message.channel.type == '!청소') {
-      return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
-    }
-    
-    if(message.channel.type != '!청소' && checkPermission(message)) return
+  if(message.content.startsWith('!청소')) {
+    if(checkPermission(message)) return
 
     var clearLine = message.content.slice('!청소 '.length);
     var isNum = !isNaN(clearLine)
@@ -153,9 +136,10 @@ client.on('message', (message) => {
 
         var user = message.content.split(' ')[1].split('<@!')[1].split('>')[0];
         var count = parseInt(message.content.split(' ')[2])+1;
+        const _limit = 10;
         let _cnt = 0;
 
-        message.channel.fetchMessages().then(collected => {
+        message.channel.fetchMessages({limit: _limit}).then(collected => {
           collected.every(msg => {
             if(msg.author.id == user) {
               msg.delete();
