@@ -149,6 +149,52 @@ client.on('message', (message) => {
         .catch(console.error)
     }
   }
+  if (message.content.startsWith('!kick')) 
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        member
+          .kick('감사로그에 표시될 사유를 입력해주세요 (선택) ')
+          .then(() => {
+            message.reply(`${user.tag}를 성공적으로 추방했습니다.`);
+          })
+          .catch(err => {
+            message.reply('유저 추방에 실패하였습니다.');
+            console.error(err);
+          });
+      } else {
+        message.reply("해당 유저는 길드에 존재하지 않습니다!");
+      }
+    } else {
+      message.reply("추방할 유저를 언급하지 않았습니다!");
+    }
+  }
+  if (message.content.startsWith('!ban')) {
+    
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+
+        member
+          .ban({
+            reason: '나빠요!?',
+          })
+          .then(() => {
+            message.reply(`${user.tag}를 성공적으로 차단했습니다.`);
+          })
+          .catch(err => {
+            message.reply('유저 추방에 실패하였습니다.');
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this guild!");
+      }
+    } else {
+      message.reply("추방할 유저를 언급하지 않았습니다!");
+    }
+  }
 });
 
 function checkPermission(message) {
