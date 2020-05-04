@@ -8,7 +8,7 @@ const byeChannelComment = "안녕히가세요.";
 
 client.on('ready', () => {
   console.log('켰다.');
-  client.user.setPresence({ game: { name: '!help를 쳐보세요.' }, status: 'online' })
+  client.user.setPresence({ game: { name: '!명령어를 쳐보세요.' }, status: 'online' })
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -39,12 +39,12 @@ client.on('message', (message) => {
   if(message.content === '!명령어') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
-      .setTitle('타이틀')
+      .setTitle('명령어')
       .setAuthor('제네시스', img)
       .setThumbnail(img)
       .addBlankField()
-      .addField('일반인', '!초대코드\n!명령어\n추가예정\n')
-      .addField('관리자', '!kick\n!ban\n!청소<숫자>\n!공지<할말>\n')
+      .addField('일반인', '!명령어\n!초대코드\n!초대코드2\n')
+      .addField('관리자', '!kick\n!ban\n!청소<숫자>\n!공지<할말>\n!공지2<할말>\n!')
       .addBlankField()
       .setTimestamp()
       .setFooter('제네시스', img)
@@ -81,9 +81,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of 콜라곰 BOT')
+        .setAuthor('공지 of Team Genesis bot')
         .setColor('#186de6')
-        .setFooter(`콜라곰 BOT ❤️`)
+        .setFooter(`Team Genesis bot`)
         .setTimestamp()
   
       embed.addField('공지: ', contents);
