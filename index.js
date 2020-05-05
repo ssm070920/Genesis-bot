@@ -111,10 +111,10 @@ client.on('message', (message) => {
           }
         })
     });
-  } else if(message.content.startsWith('!전체공지')) {
+  } else if(message.content.startsWith('!공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지'.length);
+      let contents = message.content.slice('!공지'.length);
       let embed = new Discord.RichEmbed()
         .setAuthor('공지 of Team Genesis Bot')
         .setColor('#186de6')
