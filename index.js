@@ -10,7 +10,7 @@ const byeChannelComment = "안녕히가세요.";
 
 client.on('ready', () => {
   console.log('켰다.');
-  client.user.setPresence({ game: { name: '!help를 쳐보세요.' }, status: 'online' })
+  client.user.setPresence({ game: { name: '!명령어' }, status: 'online' })
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -20,7 +20,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "게스트"));
+  member.addRole(guild.roles.find(role => role.name == "일반인"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -38,7 +38,7 @@ client.on('message', (message) => {
     return message.reply('pong');
   }
 
-  if(message.content == '!si') {
+  if(message.content == '!서버정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
