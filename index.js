@@ -78,23 +78,19 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  else if(message.content == '!help') {
+  else if(message.content == '!명령어') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
-      {name: '!help', desc: 'help'},
-      {name: 'ping', desc: '현재 핑 상태'},
-      {name: 'embed', desc: 'embed 예제1'},
-      {name: '!전체공지', desc: 'dm으로 전체 공지 보내기'},
-      {name: '!전체공지2', desc: 'dm으로 전체 embed 형식으로 공지 보내기'},
-      {name: '!청소', desc: '텍스트 지움'},
+      {name: '!명령어', desc: '사용할수 있는 명령어를 보여드림니다'},
+      {name: '!공지', desc: 'dm으로 전체 공지를 보넴니다'},
+      {name: '!청소', desc: '텍스트를 지움니다'},
       {name: '!초대코드', desc: '해당 채널의 초대 코드 표기'},
-      {name: '!초대코드2', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of 콜라곰 BOT', helpImg)
+      .setAuthor('Help of Team Genesis Bot', helpImg)
       .setColor('#186de6')
-      .setFooter(`콜라곰 BOT ❤️`)
+      .setFooter(`Team Genesis Bot`)
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -106,7 +102,7 @@ client.on('message', (message) => {
     message.channel.send(embed)
   }
   
-  if(message.content == '!명령어') {
+  if(message.content == '...................................................') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
       .setTitle('카페')
