@@ -10,7 +10,7 @@ const byeChannelComment = "안녕히가세요.";
 
 client.on('ready', () => {
   console.log('켰다.');
-  client.user.setPresence({ game: { name: '!명령어' }, status: 'online' })
+  client.user.setPresence({ game: { name: '!help를 쳐보세요.' }, status: 'online' })
 });
 
 client.on("guildMemberAdd", (member) => {
@@ -20,7 +20,7 @@ client.on("guildMemberAdd", (member) => {
 
   welcomeChannel.send(`<@${newUser.id}> ${welcomeChannelComment}\n`);
 
-  member.addRole(guild.roles.find(role => role.name == "일반인"));
+  member.addRole(guild.roles.find(role => role.name == "게스트"));
 });
 
 client.on("guildMemberRemove", (member) => {
@@ -43,7 +43,7 @@ client.on('message', (message) => {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#186de6')
-    embed.setAuthor('Team Genesis Bot', img)
+    embed.setAuthor('server info of Team Genesis Bot', img)
     embed.setFooter(`Team Genesis Bot`)
     embed.addBlankField()
     embed.addField('RAM usage',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
@@ -69,26 +69,17 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  else if(message.content == '!명령어') {
-    let helpImg = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
-    let commandList = [
-      {name: '!명령어', desc: '사용할수 있는 명령어를 보여줍니다'},,
-      {name: '!전체공지', desc: 'dm으로 전체 embed 형식으로 공지 보내기'},
-      {name: '!청소', desc: '텍스트 지움'},
-      {name: '!초대코드', desc: '봇이 들어가있는 모든 채널의 초대 코드 표기'},
-    ];
-    let commandStr = '';
+  if(message.content == '!명령어') {
+    let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of Team Genesis Bot', helpImg)
-      .setColor('#186de6')
-      .setFooter(`Team Genesis Bot`)
+      .setTitle('명령어')
+      .setAuthor('Team Genesis Bot', img, 'https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber')
+      .setThumbnail(img)
+      .addBlankField()
+      .addField('Inline field title', 'Some value here')
+      .addBlankField()
       .setTimestamp()
-    
-    commandList.forEach(x => {
-      commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
-    });
-
-    embed.addField('Commands: ', commandStr);
+      .setFooter('Team Genesis Bot', img)
 
     message.channel.send(embed)
   } else if(message.content == '!초대코드') {
@@ -103,15 +94,14 @@ client.on('message', (message) => {
           }
         })
     });
-  }
-  else if(message.content.startsWith('!전체공지')) {
+  } else if(message.content.startsWith('!전체공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
-      let contents = message.content.slice('!전체공지2'.length);
+      let contents = message.content.slice('!전체공지'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of Team Genesis Bot')
+        .setAuthor('공지 of 콜라곰 BOT')
         .setColor('#186de6')
-        .setFooter(`Team Genesis Bot`)
+        .setFooter(`콜라곰 BOT ❤️`)
         .setTimestamp()
   
       embed.addField('공지: ', contents);
@@ -125,8 +115,7 @@ client.on('message', (message) => {
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
-  }
-  else if(message.content.startsWith('!청소')) {
+  } else if(message.content.startsWith('!청소')) {
     if(message.channel.type == 'dm') {
       return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
     }
