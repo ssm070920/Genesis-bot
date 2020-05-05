@@ -86,7 +86,7 @@ client.on('message', (message) => {
       .addField('Inline field title', 'Some value here')
       .addBlankField()
       .setTimestamp()
-      .setFooter('Team Genesis Bot', img)
+      .setFooter('Team Genesis Bot', img, 'https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber')
 
     message.channel.send(embed)
   } else if(message.content == '!초대코드') {
