@@ -46,7 +46,53 @@ client.on('message', (message) => {
   if(message.content == 'ping') {
     return message.reply('pong');
   }
-
+  
+  if (message.content.startsWith('!kick')) {
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        member
+          .kick('감사로그에 표시될 사유를 입력해주세요 (선택) ')
+          .then(() => {
+            message.reply(`${user.tag}를 성공적으로 추방했습니다.`);
+          })
+          .catch(err => {
+            message.reply('유저 추방에 실패하였습니다.');
+            console.error(err);
+          });
+      } else {
+        message.reply("해당 유저는 길드에 존재하지 않습니다!");
+      }
+    } else {
+      message.reply("추방할 유저를 언급하지 않았습니다!");
+    }
+  }
+  
+  if (message.content.startsWith('!ban')) {
+    const user = message.mentions.users.first();
+    if (user) {
+      const member = message.guild.member(user);
+      if (member) {
+        member
+          .ban({
+            reason: '나빠요!?',
+          })
+          .then(() => {
+            message.reply(`${user.tag}를 성공적으로 차단했습니다.`);
+          })
+          .catch(err => {
+            message.reply('유저 추방에 실패하였습니다.');
+            console.error(err);
+          });
+      } else {
+        message.reply("That user isn't in this guild!");
+      }
+    } else {
+      message.reply("추방할 유저를 언급하지 않았습니다!");
+    }
+  }
+  
   if(message.content == '!서버정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
