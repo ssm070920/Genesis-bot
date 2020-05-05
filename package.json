@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^11.6.4"
+    "discord.js": "^11.6.4",
+    "moment": "^2.20.1",
+    "moment-duration-format": "^2.2.1",
+    "moment-timezone": "^0.5.28"
   },
   "devDependencies": {},
   "scripts": {
