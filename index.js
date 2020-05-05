@@ -81,7 +81,8 @@ client.on('message', (message) => {
   if(message.content == '!명령어') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
-      .setTitle('명령어')
+      .setTitle('카페')
+      .setURL('https://cafe.naver.com/teamgenesisserver')
       .setAuthor('Team Genesis Bot', img, 'https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber')
       .setThumbnail(img)
       .addBlankField()
