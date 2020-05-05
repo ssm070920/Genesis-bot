@@ -34,6 +34,15 @@ client.on("guildMemberRemove", (member) => {
 client.on('message', (message) => {
   if(message.author.bot) return;
 
+  if(message.content == '!카페') {
+    return message.reply('https://cafe.naver.com/teamgenesisserver');
+  }
+  if(message.content == '!유튜브') {
+    return message.reply('https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber');
+  }
+  if(message.content == 'ping') {
+    return message.reply('pong');
+  }
   if(message.content == 'ping') {
     return message.reply('pong');
   }
@@ -86,7 +95,7 @@ client.on('message', (message) => {
       .addField('Inline field title', 'Some value here')
       .addBlankField()
       .setTimestamp()
-      .setFooter('Team Genesis Bot', img, 'https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber')
+      .setFooter('Team Genesis Bot', img)
 
     message.channel.send(embed)
   } else if(message.content == '!초대코드') {
