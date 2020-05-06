@@ -46,7 +46,7 @@ client.on('message', (message) => {
   if(message.content == 'ping') {
     return message.reply('pong');
   }
-  
+
   if (message.content.startsWith('!kick')) {
     const user = message.mentions.users.first();
     if (user) {
@@ -68,7 +68,7 @@ client.on('message', (message) => {
       message.reply("추방할 유저를 언급하지 않았습니다!");
     }
   }
-  
+
   if (message.content.startsWith('!ban')) {
     const user = message.mentions.users.first();
     if (user) {
@@ -92,7 +92,7 @@ client.on('message', (message) => {
       message.reply("추방할 유저를 언급하지 않았습니다!");
     }
   }
-  
+
   if(message.content == '!서버정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
@@ -108,11 +108,11 @@ client.on('message', (message) => {
     // embed.addField('channel',      `${client.channels.size.toLocaleString()}`, true);
     embed.addField('Discord.js',   `v${Discord.version}`, true);
     embed.addField('Node',         `${process.version}`, true);
-    
+
     let arr = client.guilds.array();
     let list = '';
     list = `\`\`\`css\n`;
-    
+
     for(let i=0;i<arr.length;i++) {
       // list += `${arr[i].name} - ${arr[i].id}\n`
       list += `${arr[i].name}\n`
@@ -124,7 +124,7 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  else if(message.content == +'!명령어') {
+  else if(message.content == '!명령어') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
       {name: '!명령어', desc: '사용할수 있는 명령어를 보여드림니다'},
@@ -138,7 +138,7 @@ client.on('message', (message) => {
       .setColor('#186de6')
       .setFooter(`Team Genesis Bot`)
       .setTimestamp()
-    
+
     commandList.forEach(x => {
       commandStr += `• \`\`${changeCommandStringLength(`${x.name}`)}\`\` : **${x.desc}**\n`;
     });
@@ -147,8 +147,8 @@ client.on('message', (message) => {
 
     message.channel.send(embed)
   }
-  
-  if(message.content == ('.............................................') {
+
+  if(message.content == '...................................................') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
       .setTitle('카페')
@@ -190,14 +190,14 @@ client.on('message', (message) => {
         .setColor('#186de6')
         .setFooter(`Team Genesis Bot`)
         .setTimestamp()
-  
+
       embed.addField('공지: ', contents);
-  
+
       message.member.guild.members.array().forEach(x => {
         if(x.user.bot) return;
         x.user.send(embed)
       });
-  
+
       return message.reply('공지를 전송했습니다.');
     } else {
       return message.reply('채널에서 실행해주세요.');
@@ -206,10 +206,10 @@ client.on('message', (message) => {
     if(message.channel.type == 'dm') {
       return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
     }
-    
+
     if(message.channel.type != 'dm' && checkPermission(message)) return
 
-    var clearLine = message.content.slice('청소 '.length);
+    var clearLine = message.content.slice('!청소 '.length);
     var isNum = !isNaN(clearLine)
 
     if(isNum && (clearLine <= 0 || 100 < clearLine)) {
