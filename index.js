@@ -7,6 +7,10 @@ const welcomeChannelName = "안녕하세요";
 const byeChannelName = "안녕히가세요";
 const welcomeChannelComment = "어서오세요.";
 const byeChannelComment = "안녕히가세요.";
+const hook = new Discord.WebhookClient('707456642320695296', 'tZwUxXhI-jTHU335WgkNEy-v7HFdVJjYY0K_4uu-43A6-P3U6UzZXsRqP7Sg4DOg87Gv');
+
+// 웹훅을 사용하여 메세지를 보냅니다.
+hook.send('난 이제 살아 있어요!');
 
 client.on('ready', () => {
   console.log('켰다.');
