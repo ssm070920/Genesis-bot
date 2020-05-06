@@ -35,16 +35,16 @@ client.on("guildMemberRemove", (member) => {
 client.on('message', (message) => {
   if(message.author.bot) return;
 
-  if(message.content == prefix +'카페') {
+  if(message.content == prefix + '카페') {
     return message.reply('https://cafe.naver.com/teamgenesisserver');
   }
-  if(message.content == prefix +'유튜브') {
+  if(message.content == prefix + '유튜브') {
     return message.reply('https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber');
   }
-  if(message.content == prefix +'ping') {
+  if(message.content == prefix + 'ping') {
     return message.reply('pong');
   }
-  if(message.content == prefix +'ping') {
+  if(message.content == prefix + 'ping') {
     return message.reply('pong');
   }
   
