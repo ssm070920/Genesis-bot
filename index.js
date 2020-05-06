@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = process.argv.length == 2 ? process.env.token : "";
+const prefix = '!'
 const moment = require("moment");
 require("moment-duration-format");
 const welcomeChannelName = "안녕하세요";
@@ -34,20 +35,20 @@ client.on("guildMemberRemove", (member) => {
 client.on('message', (message) => {
   if(message.author.bot) return;
 
-  if(message.content == '!카페') {
+  if(message.content == prefix +'카페') {
     return message.reply('https://cafe.naver.com/teamgenesisserver');
   }
-  if(message.content == '!유튜브') {
+  if(message.content == prefix +'유튜브') {
     return message.reply('https://www.youtube.com/channel/UCMyW9-lHVnNp_moiu9BQtvQ?view_as=subscriber');
   }
-  if(message.content == 'ping') {
+  if(message.content == prefix +'ping') {
     return message.reply('pong');
   }
-  if(message.content == 'ping') {
+  if(message.content == prefix +'ping') {
     return message.reply('pong');
   }
   
-  if (message.content.startsWith('!kick')) {
+  if (message.content.startsWith prefix +('kick')) {
     const user = message.mentions.users.first();
     if (user) {
       const member = message.guild.member(user);
@@ -69,7 +70,7 @@ client.on('message', (message) => {
     }
   }
   
-  if (message.content.startsWith('!ban')) {
+  if (message.content.startsWith prefix +('!ban')) {
     const user = message.mentions.users.first();
     if (user) {
       const member = message.guild.member(user);
@@ -93,7 +94,7 @@ client.on('message', (message) => {
     }
   }
   
-  if(message.content == '!서버정보') {
+  if(message.content == prefix +'서버정보') {
     let embed = new Discord.RichEmbed()
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
@@ -124,7 +125,7 @@ client.on('message', (message) => {
     message.channel.send(embed);
   }
 
-  else if(message.content == '!명령어') {
+  else if(message.content == prefix +'명령어') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
       {name: '!명령어', desc: '사용할수 있는 명령어를 보여드림니다'},
@@ -148,7 +149,7 @@ client.on('message', (message) => {
     message.channel.send(embed)
   }
   
-  if(message.content == '...................................................') {
+  if(message.content == prefix +'...................................................') {
     let img = 'https://postfiles.pstatic.net/MjAyMDA1MDRfMTYx/MDAxNTg4NTE4OTQ5NTMy.r7sC0SYx8ntaKn8eRNhUHa1DqnAdEhPpYV_lo0uZgiog.oHl1sUkm7G6mUQG_4kWDBRTlHQyTaIFA2rFLn95YL1sg.PNG.vb0877/%ED%8C%80%EC%A0%9C%EB%84%A4%EC%8B%9C%EC%8A%A4_%EB%A1%9C%EA%B3%A0.png?type=w773';
     let embed = new Discord.RichEmbed()
       .setTitle('카페')
@@ -169,7 +170,7 @@ client.on('message', (message) => {
       .setFooter('Team Genesis Bot', img)
 
     message.channel.send(embed)
-  } else if(message.content == '!초대코드') {
+  } else if(message.content == prefix +'초대코드') {
     client.guilds.array().forEach(x => {
       x.channels.find(x => x.type == 'text').createInvite({maxAge: 0}) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
         .then(invite => {
@@ -181,7 +182,7 @@ client.on('message', (message) => {
           }
         })
     });
-  } else if(message.content.startsWith('!공지')) {
+  } else if(message.content.startsWith prefix +('공지')) {
     if(checkPermission(message)) return
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!공지'.length);
@@ -202,14 +203,14 @@ client.on('message', (message) => {
     } else {
       return message.reply('채널에서 실행해주세요.');
     }
-  } else if(message.content.startsWith('!청소')) {
+  } else if(message.content.startsWith prefix +('청소')) {
     if(message.channel.type == 'dm') {
       return message.reply('dm에서 사용할 수 없는 명령어 입니다.');
     }
     
     if(message.channel.type != 'dm' && checkPermission(message)) return
 
-    var clearLine = message.content.slice('!청소 '.length);
+    var clearLine = message.content.slice('청소 '.length);
     var isNum = !isNaN(clearLine)
 
     if(isNum && (clearLine <= 0 || 100 < clearLine)) {
